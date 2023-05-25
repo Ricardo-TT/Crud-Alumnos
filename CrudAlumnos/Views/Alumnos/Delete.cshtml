@@ -1,0 +1,100 @@
+﻿@model CrudAlumnos.Models.Alumno
+@{
+    ViewData["Title"] = "Eliminar Alumno";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@10" rel="stylesheet" />
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Eliminar Alumno</h3>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-sm-10">
+           <form method="post" asp-action="DeleteAlumno">
+
+               <input type="hidden" asp-for="Id"/>
+
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               <div class="form-group">
+                   <label asp-for="Nombre" class="control-label"></label>
+                   <input asp-for="Nombre" class="form-control" readonly />
+                   <span asp-validation-for="Nombre" class="text-danger"></span>
+               </div>
+
+                <div class="form-group">
+                    <label asp-for="Estatus" class="control-label"></label>
+                    <input asp-for="Estatus" class="form-control" readonly />
+                    <span asp-validation-for="Estatus" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Estado_Alumno" class="control-label"></label>
+                    <div class="form-check form-switch" readonly>
+                        <input asp-for="Estado_Alumno" class="form-check-input" type="checkbox" role="switch" readonly />
+                        <label class="form-check-label" asp-for="Estado_Alumno">Estado del Alumno</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GradoId" class="control-label"></label>
+                    <input asp-for="GradoId" class="form-control" readonly/>
+                    <span asp-validation-for="GradoId" class="text-danger"></span>
+                </div>
+
+                <button id="BotonEliminar" type="submit" class="btn btn-outline-danger">
+                    <i class="bi bi-person-x"></i> &nbsp; Eliminar
+                </button>
+
+
+           </form>
+       </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+    @{
+            <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
+
+<script>
+    document.getElementById("BotonEliminar").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¡No podrás deshacer esta acción!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, quiero eliminarlo'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.form.submit();
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'El alumno se eliminó correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelado',
+                    'El alumno no se eliminó',
+                    'error'
+                );
+            }
+        });
+    });
+</script>

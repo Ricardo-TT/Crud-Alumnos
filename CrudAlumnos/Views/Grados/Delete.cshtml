@@ -1,0 +1,45 @@
+﻿@model CrudAlumnos.Models.Grado
+@{
+    ViewData["Title"] = "Eliminar Grado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Eliminar Grado</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="DeleteGrado">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Grado_Escolar" class="control-label"></label>
+                    <input asp-for="Grado_Escolar" class="form-control" readonly />
+                    <span asp-validation-for="Grado_Escolar" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="bi bi-person-x"></i> &nbsp; Eliminar
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
